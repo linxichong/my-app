@@ -25,4 +25,27 @@ module.exports = merge(common, {
         // 定义输出文件名路径
         path: path.resolve(__dirname, 'dist'),
     },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    name: 'vendor',
+                    chunks: 'all',
+                    test: /node_modules/,
+                    priority: 20,
+                    reuseExistingChunk: true,
+                },
+                commons: {
+                    name: 'commons',
+                    chunks: 'initial',
+                    minChunks: 2,
+                    minSize: 0,
+                    reuseExistingChunk: true,
+                }
+            }
+        },
+        runtimeChunk: {
+            name: entrypoint => `manifest.${entrypoint.name}`
+        }
+    },
 })
