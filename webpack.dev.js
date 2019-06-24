@@ -19,7 +19,11 @@ module.exports = merge(common, {
         // 当开启 HMR 的时候使用该插件会显示模块的相对路径，建议用于开发环境
         new webpack.NamedModulesPlugin(),
         // 启用 HMR 热更新，建议用于开发环境
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        // 预设程序执行环境
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('development')
+        })
     ],
     // 管理输出
     output: {
