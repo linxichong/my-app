@@ -1,7 +1,5 @@
-const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const webpack = require('webpack')
 
 module.exports = {
     // 入口文件
@@ -29,10 +27,6 @@ module.exports = {
                 use: {
                     loader: 'babel-loader'
                 }
-            },
-            {
-                test: /\.(ts|tsx)?$/,
-                loader: 'awesome-typescript-loader'
             },
         ]
     }
