@@ -13,6 +13,11 @@ const presets = [
     ["@babel/preset-typescript"]
 ];
 
+const plugins = [
+    ["@babel/plugin-syntax-dynamic-import"]
+]
+
 module.exports = {
-    presets
+    presets,
+    plugins
 };

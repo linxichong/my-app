@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { Route, Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
-import Top from '../components/Top';
-import About from '../components/About';
 import Header from '../components/Header';
 import { PATHS } from '../constants';
+import { lazy, Suspense } from "react";
+import Top from '../components/Top';
 
+const About = lazy(() => import('../components/About'));
 let history = createBrowserHistory()
 
 class App extends React.Component {
@@ -14,7 +15,9 @@ class App extends React.Component {
             <Router history={history}>
                 <Header />
                 <Route exact path={PATHS.TOP} component={Top}></Route>
-                <Route exact path={PATHS.ABOUT} component={About} ></Route>
+                <Suspense fallback={() => <div>Loading...</div>}>
+                    <Route exact path={PATHS.ABOUT} component={About} ></Route>
+                </Suspense>
             </Router>
         );
     }
