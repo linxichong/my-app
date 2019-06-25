@@ -1,24 +1,30 @@
 import * as React from 'react'
-import { Route, Router } from "react-router-dom";
-import { createBrowserHistory } from "history";
+import { Route } from "react-router-dom";
+import { history, store } from "../store/configureStore";
 import Header from '../components/Header';
 import { PATHS } from '../constants';
 import { lazy, Suspense } from "react";
-import Top from '../components/Top';
+import Top from './Top';
+import { ConnectedRouter } from 'connected-react-router'
+import { Provider } from 'react-redux'
 
-const About = lazy(() => import('../components/About'));
-let history = createBrowserHistory()
+const About = lazy(() => import('./About'));
+const TodoComp = lazy(() => import('./TodoComp'));
+
 
 class App extends React.Component {
     render() {
         return (
-            <Router history={history}>
-                <Header />
-                <Route exact path={PATHS.TOP} component={Top}></Route>
-                <Suspense fallback={() => <div>Loading...</div>}>
-                    <Route exact path={PATHS.ABOUT} component={About} ></Route>
-                </Suspense>
-            </Router>
+            <Provider store={store}>
+                <ConnectedRouter history={history}>
+                    <Header />
+                    <Route exact path={PATHS.TOP} component={Top}></Route>
+                    <Suspense fallback={() => <div>Loading...</div>}>
+                        <Route exact path={PATHS.ABOUT} component={About} ></Route>
+                        <Route exact path={PATHS.TODOS} component={TodoComp} ></Route>
+                    </Suspense>
+                </ConnectedRouter>
+            </Provider>
         );
     }
 }
