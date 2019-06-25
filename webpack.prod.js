@@ -25,9 +25,10 @@ module.exports = merge(common, {
         // 定义输出文件名路径
         path: path.resolve(__dirname, 'dist'),
     },
+    // 代码分割配置
     optimization: {
+        // 代码块分割配置
         splitChunks: {
-            automaticNameDelimiter: '-',
             cacheGroups: {
                 vendor: {
                     name: 'verdor',
@@ -38,6 +39,7 @@ module.exports = merge(common, {
                 },
             }
         },
+        // manifest分割配置
         runtimeChunk: {
             name: entrypoint => `manifest.${entrypoint.name}`
         }
