@@ -27,21 +27,15 @@ module.exports = merge(common, {
     },
     optimization: {
         splitChunks: {
+            automaticNameDelimiter: '-',
             cacheGroups: {
                 vendor: {
-                    name: 'vendor',
+                    name: 'verdor',
                     chunks: 'all',
                     test: /node_modules/,
                     priority: 20,
                     reuseExistingChunk: true,
                 },
-                commons: {
-                    name: 'commons',
-                    chunks: 'initial',
-                    minChunks: 2,
-                    minSize: 0,
-                    reuseExistingChunk: true,
-                }
             }
         },
         runtimeChunk: {
