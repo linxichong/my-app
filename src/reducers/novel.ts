@@ -15,7 +15,7 @@ export const initialState: NovelStateType = {
 };
 
 // 根据不同的Action生成Reducer
-export const novel = handleActions({
+export const novelReducer = handleActions({
     [ACTION_TYPES.FETCH_NOVELS]: (state: NovelStateType) => {
         return { ...state, isLoading: true };
     },

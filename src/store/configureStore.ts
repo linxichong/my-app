@@ -2,9 +2,10 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import { createBrowserHistory } from 'history'
 import { connectRouter, routerMiddleware, RouterState } from 'connected-react-router'
-import { NovelStateType, novel } from 'src/reducers/novel';
+import { NovelStateType, novelReducer } from '../reducers/novel';
 import { createLogger } from 'redux-logger'
 
+// 状态变化记录中间件
 const loggerMiddleware = createLogger()
 // 浏览器history对象
 export const history = createBrowserHistory();
@@ -17,7 +18,7 @@ export type AppStateType = {
 
 // 将各种reducer合并为一个根reducer
 const rootReducer = combineReducers({
-    novel,
+    novel: novelReducer,
     // 将路由与浏览器历史关联
     router: connectRouter(history),
 })
