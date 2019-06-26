@@ -10,7 +10,8 @@ class Top extends React.Component<TopProps> {
     }
 
     componentDidMount(){
-        console.log(this.props)
+        let data = callApi('/data/index')
+        console.log(data)
     }
     
     render() {
