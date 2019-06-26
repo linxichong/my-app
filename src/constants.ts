@@ -4,15 +4,13 @@ export const PATHS = {
     ABOUT: '/about',
     TODOS: '/todos'
 }
+
 // 定义ACTION类型 
 export const ACTION_TYPES = {
-    ADD_TODO: 'ADD_TODO',
-    TOGGLE_TODO: 'TOGGLE_TODO',
-    SET_VISIBILITY_FILTER: 'SET_VISIBILITY_FILTER',
-}
-// TODO显示状态
-export const VisibilityFilters = {
-    SHOW_ALL: 'SHOW_ALL',
-    SHOW_COMPLETED: 'SHOW_COMPLETED',
-    SHOW_ACTIVE: 'SHOW_ACTIVE'
+    // 发起请求
+    FETCH_NOVELS: 'FETCH_NOVELS',
+    // 请求成功
+    FETCH_NOVELS_OK: 'FETCH_NOVELS_OK',
+    // 请求失败
+    FETCH_NOVELS_NG: 'FETCH_NOVELS_NG',
 }
