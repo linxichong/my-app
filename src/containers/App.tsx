@@ -9,6 +9,7 @@ import { ConnectedRouter } from 'connected-react-router'
 import { Provider } from 'react-redux'
 
 const About = lazy(() => import('./About'));
+const NovelContainer = lazy(() => import('./NovelContainer'));
 
 
 class App extends React.Component {
@@ -20,6 +21,7 @@ class App extends React.Component {
                     <Route exact path={PATHS.TOP} component={Top}></Route>
                     <Suspense fallback={() => <div>Loading...</div>}>
                         <Route exact path={PATHS.ABOUT} component={About} ></Route>
+                        <Route exact path={PATHS.NOVELS} component={NovelContainer} ></Route>
                     </Suspense>
                 </ConnectedRouter>
             </Provider>

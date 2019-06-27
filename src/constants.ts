@@ -2,7 +2,7 @@
 export const PATHS = {
     TOP: '/',
     ABOUT: '/about',
-    TODOS: '/todos'
+    NOVELS: '/novels'
 }
 
 // 定义ACTION类型 
