@@ -12,8 +12,8 @@ class Top extends React.Component<TopProps> {
     }
 
     componentDidMount(){
-        let data = callApi('/data')
-        console.log(data)
+        // let data = callApi('/data')
+        // console.log(data)
     }
     
     render() {

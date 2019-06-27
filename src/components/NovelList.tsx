@@ -6,7 +6,7 @@ export interface NovelListProps {
 }
 
 const NovelList: React.SFC<NovelListProps> = (props) => {
-    return (<ul>
+    return <ul>
         {
             props.novels.map((novel, index) => {
                 return (
@@ -19,7 +19,7 @@ const NovelList: React.SFC<NovelListProps> = (props) => {
                 );
             })
         }
-    </ul>);
+    </ul>
 }
 
 export default NovelList;

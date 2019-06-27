@@ -19,7 +19,7 @@ class App extends React.Component {
                 <ConnectedRouter history={history}>
                     <Header />
                     <Route exact path={PATHS.TOP} component={Top}></Route>
-                    <Suspense fallback={() => <div>Loading...</div>}>
+                    <Suspense fallback={<div>Loading...</div>}>
                         <Route exact path={PATHS.ABOUT} component={About} ></Route>
                         <Route exact path={PATHS.NOVELS} component={NovelContainer} ></Route>
                     </Suspense>

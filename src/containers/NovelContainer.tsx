@@ -14,44 +14,25 @@ export interface NovelContainerProps {
     dispatch: any;
 }
 
-// const NovelContainer: React.SFC<NovelContainerProps> = (props) => {
-//     // componentDidMount，componentDidUpdate 和 componentWillUnmount 这三个函数的组合
-//     // 保持render的纯净，副作用操作都放到渲染之后执行
-//     useEffect(() => {
-//         let { dispatch } = props;
-//         dispatch(searchNovels('test'))
-//     }, [])
-
-//     // 加载中UI
-//     if (!props.isLoading) {
-//         return (<div>loading...</div>);
-//     }
-//     // 加载完成后UI
-//     return (
-//         <NovelList novels={props.data}></NovelList>
-//     );
-// }
-
- 
-class NovelContainer extends React.Component<NovelContainerProps> {
-    constructor(props: NovelContainerProps) {
-        super(props);
-    }
-
-    componentDidMount() {
-        let { dispatch } = this.props;
+const NovelContainer: React.SFC<NovelContainerProps> = (props) => {
+    // componentDidMount，componentDidUpdate 和 componentWillUnmount 这三个函数的组合
+    // 保持render的纯净，副作用操作都放到渲染之后执行
+    useEffect(() => {
+        let { dispatch } = props;
         dispatch(searchNovels('test'))
-    }
+    }, []) 
 
-    render() { 
-        // 加载中UI
-        if (!this.props.isLoading) {
-            return (<div>loading...</div>);
-        }
-        return ( 
-            <NovelList novels={this.props.data}></NovelList>
-         );
+    // 加载中UI
+    if (!props.isLoading) {
+        return (<div>loading...</div>);
     }
+    if (props.data.length == 0) {
+        return <div>No Data...</div>
+    }
+    // 加载完成后UI
+    return (
+        <NovelList novels={props.data}></NovelList>
+    );
 }
 
 // connect生成容器组件
