@@ -1,4 +1,6 @@
 import * as React from "react";
+import { callApi } from "../services/api";
+import '../services/mockdata'
 
 export interface TopProps {
 
@@ -10,7 +12,8 @@ class Top extends React.Component<TopProps> {
     }
 
     componentDidMount(){
-        console.log(this.props)
+        let data = callApi('/data')
+        console.log(data)
     }
     
     render() {
