@@ -4,6 +4,7 @@ import { createBrowserHistory } from 'history'
 import { connectRouter, routerMiddleware, RouterState } from 'connected-react-router'
 import { NovelStateType, novelReducer } from '../reducers/novel';
 import { createLogger } from 'redux-logger'
+import { reduxCatch } from "../middleware";
 
 // 状态变化记录中间件
 const loggerMiddleware = createLogger()
@@ -31,6 +32,10 @@ export const store = createStore(
     applyMiddleware(
         thunk,
         routerMiddleware(history),
-        loggerMiddleware
+        loggerMiddleware,
+        reduxCatch((error: any, getState: any, lastAction: any, dispatch: any) => {
+            console.error('Redux Action 调用出错了');
+            console.error(error);
+        })
     )
 )

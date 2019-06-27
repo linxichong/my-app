@@ -1,4 +1,3 @@
-
 import * as React from 'react'
 import NovelList from '../components/NovelList';
 import { useEffect } from "react";
@@ -20,14 +19,27 @@ const NovelContainer: React.SFC<NovelContainerProps> = (props) => {
     useEffect(() => {
         let { dispatch } = props;
         dispatch(searchNovels('test'))
-    }, []) 
+    }, [])
+
+    let handleClick = () => {
+        try {
+            throw "11111111";
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     // 加载中UI
     if (!props.isLoading) {
         return (<div>loading...</div>);
     }
     if (props.data.length == 0) {
-        return <div>No Data...</div>
+        return (
+            <div>
+                No Data...
+                <button onClick={handleClick}>Click Me</button>
+            </div>
+        );
     }
     // 加载完成后UI
     return (
