@@ -14,3 +14,8 @@ export const ACTION_TYPES = {
     // 请求失败
     FETCH_NOVELS_NG: 'FETCH_NOVELS_NG',
 }
+
+// 定义API请求路径
+export const API_URLS = {
+    NOVELS: `/novels`,
+}

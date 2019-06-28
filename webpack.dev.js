@@ -10,6 +10,8 @@ module.exports = merge(common, {
     devtool: 'cheap-module-eval-source-map',
     // 管理开发服务器
     devServer: {
+        // 开启服务器路由支持，默认定位根目录index.html
+        historyApiFallback: true,
         // 查找文件路径
         contentBase: 'dist',
         // 启用 HMR

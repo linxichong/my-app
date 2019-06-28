@@ -8,7 +8,7 @@ export interface NovelListProps {
 const NovelList: React.SFC<NovelListProps> = (props) => {
     return <ul>
         {
-            props.novels.map((novel, index) => {
+            props.novels && props.novels.map((novel, index) => {
                 return (
                     <li key={novel.id}>
                         <span>{index}</span>

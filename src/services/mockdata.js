@@ -6,4 +6,4 @@ let template = {'list|20': [{
     'author': '@cname',
     "summary": "@cparagraph"
 }]}
-Mock.mock('/data', template)
+Mock.mock('/api/novels', template)

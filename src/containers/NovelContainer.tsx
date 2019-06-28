@@ -5,6 +5,7 @@ import { AppStateType } from '../store/configureStore';
 import { searchNovels } from '../actions/novel';
 import { Novel } from '../types/novel';
 import { connect } from 'react-redux';
+import '../services/mockdata.js'
 
 export interface NovelContainerProps {
     isLoading: boolean;
@@ -18,7 +19,7 @@ const NovelContainer: React.SFC<NovelContainerProps> = (props) => {
     // 保持render的纯净，副作用操作都放到渲染之后执行
     useEffect(() => {
         let { dispatch } = props;
-        dispatch(searchNovels('test'))
+        dispatch(searchNovels())
     }, [])
 
     let handleClick = () => {
@@ -33,7 +34,7 @@ const NovelContainer: React.SFC<NovelContainerProps> = (props) => {
     if (!props.isLoading) {
         return (<div>loading...</div>);
     }
-    if (props.data.length == 0) {
+    if (props.data && props.data.length == 0) {
         return (
             <div>
                 No Data...
