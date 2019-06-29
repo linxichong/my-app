@@ -5,7 +5,6 @@ import { AppStateType } from '../store/configureStore';
 import { searchNovels } from '../actions/novel';
 import { Novel } from '../types/novel';
 import { connect } from 'react-redux';
-import '../services/mockdata.js'
 
 export interface NovelContainerProps {
     isLoading: boolean;
