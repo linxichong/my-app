@@ -11,6 +11,7 @@ import ErrorBoundary from './ErrorBoundary';
 
 const About = lazy(() => import('./About'));
 const NovelContainer = lazy(() => import('./NovelContainer'));
+const MaterialUI = lazy(() => import('./MaterialUI'));
 
 
 class App extends React.Component {
@@ -24,6 +25,7 @@ class App extends React.Component {
                         <Suspense fallback={<div>Loading...</div>}>
                             <Route exact path={PATHS.ABOUT} component={About} ></Route>
                             <Route exact path={PATHS.NOVELS} component={NovelContainer} ></Route>
+                            <Route exact path={PATHS.UI} component={MaterialUI} ></Route>
                         </Suspense>
                     </ErrorBoundary>
                 </ConnectedRouter>

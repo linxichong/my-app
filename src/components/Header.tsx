@@ -8,6 +8,7 @@ const Header: React.SFC = () => {
             <li><Link to={PATHS.TOP}>Top</Link></li>
             <li><Link to={PATHS.ABOUT}>About</Link></li>
             <li><Link to={PATHS.NOVELS}>Novel List</Link></li>
+            <li><Link to={PATHS.UI}>Material UI</Link></li>
         </ul>
     );
 }
