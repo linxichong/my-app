@@ -9,7 +9,9 @@ class MaterialUI extends React.Component<MaterialUIProps> {
         super(props);
     }
     render() {
-        return (<div></div>);
+        return (
+            <div>MaterialUI</div>
+        );
     }
 }
 
