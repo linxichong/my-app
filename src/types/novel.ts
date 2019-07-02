@@ -1,6 +1,6 @@
-export type Novel = {
-    id: string;
-    title: string;
-    author: string;
-    summary: string;
+export interface Novel {
+  id: string;
+  title: string;
+  author: string;
+  summary: string;
 }

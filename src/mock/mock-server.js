@@ -1,7 +1,7 @@
-let express = require('express');   //引入express
-let Mock = require('mockjs');       //引入mock
+const express = require('express');   //引入express
+const Mock = require('mockjs');       //引入mock
 
-let app = express();        //实例化express
+const app = express();        //实例化express
 
 app.all('*', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');

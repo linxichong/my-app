@@ -30,13 +30,13 @@ module.exports = {
                     loader: 'babel-loader'
                 }
             },
-            // {
-            //     enforce: 'pre',
-            //     test: /\.(ts|tsx)$/,
-            //     exclude: /node_modules/,
-            //     include: path.resolve(__dirname, "src"),
-            //     loader: 'eslint-loader',
-            // },
+            {
+                enforce: 'pre',
+                test: /\.(ts|tsx)$/,
+                exclude: /node_modules/,
+                include: path.resolve(__dirname, "src"),
+                loader: 'eslint-loader',
+            },
         ]
     }
 };
