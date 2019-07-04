@@ -18,7 +18,7 @@ const NovelContainer: React.SFC<NovelContainerProps> = props => {
   React.useEffect(() => {
     const { dispatch } = props;
     dispatch(searchNovels());
-  }, []);
+  });
 
   const handleClick = () => {
     try {

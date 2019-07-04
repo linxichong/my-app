@@ -41,6 +41,7 @@
     "eslint-plugin-jest": "22.x",
     "eslint-plugin-jsx-a11y": "6.x",
     "eslint-plugin-react": "7.x",
+    "eslint-plugin-react-hooks": "^1.6.1",
     "eslint-plugin-unicorn": "6.x",
     "express": "^4.17.1",
     "html-webpack-plugin": "^3.2.0",

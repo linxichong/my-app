@@ -1,0 +1,17 @@
+# 标记此配置文件为最顶层
+root = true
+
+# 匹配所有文件
+[*]
+# 缩进格式 空格
+indent_style = space
+# 缩进格式字符大小
+indent_size = 2
+# 换行格式
+end_of_line = lf
+# 字符编码
+charset = utf-8
+# 去除每行末尾多余空格
+trim_trailing_whitespace = true
+# 在代码末尾添加新行
+insert_final_newline = true

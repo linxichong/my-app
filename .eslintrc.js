@@ -1,13 +1,22 @@
 module.exports = {
+    // 继承已有的共享配置
     "extends": "@stinkstudios/eslint-config-react-app",
-    rules: {
+    // 启用的规则及其各自的错误级别 0-off 1-warn 2-error
+    "rules": {
         // 不禁用console
         'no-console': 0,
         // 防止在React组件定义中丢失props验证
         "react/prop-types": 0,
         // 关闭 ox 规则中的文件名小写
-        'unicorn/filename-case': 0
-    }
+        'unicorn/filename-case': 0,
+        // 遵循官方Hook规则的验证
+        'react-hooks/exhaustive-deps': 1,
+        'react-hooks/rules-of-hooks': 2,
+    },
+    // 配置插件
+    "plugins": [
+        "react-hooks"
+    ],
 }
 
 
