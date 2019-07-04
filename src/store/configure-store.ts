@@ -1,12 +1,8 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
-import {
-  connectRouter,
-  routerMiddleware,
-  RouterState
-} from "connected-react-router";
-import { NovelStateType, novelReducer } from "../reducers/novel";
+import { connectRouter, routerMiddleware } from "connected-react-router";
+import { novelReducer } from "../reducers/novel";
 import { createLogger } from "redux-logger";
 import { reduxCatch } from "../middleware";
 
@@ -15,11 +11,6 @@ const loggerMiddleware = createLogger();
 // 浏览器history对象
 export const history = createBrowserHistory();
 // 定义应用程序状态树的结构类型
-export interface AppStateType {
-  // 路由状态
-  router: RouterState;
-  novel: NovelStateType;
-}
 
 // 将各种reducer合并为一个根reducer
 const rootReducer = combineReducers({
@@ -27,6 +18,9 @@ const rootReducer = combineReducers({
   // 将路由与浏览器历史关联
   router: connectRouter(history)
 });
+
+// 通过rootReducer 推断状态形状
+export type AppStateType = ReturnType<typeof rootReducer>;
 
 // 创建store
 export const store = createStore(
