@@ -1,5 +1,5 @@
 import * as React from "react";
-import NovelList from "../components/ovelList";
+import NovelList from "../components/NovelList";
 import { AppStateType } from "../store/configure-store";
 import { searchNovels } from "../actions/novel";
 import { Novel } from "../types/novel";
