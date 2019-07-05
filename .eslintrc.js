@@ -10,7 +10,7 @@ module.exports = {
         // 关闭 ox 规则中的文件名小写
         'unicorn/filename-case': 0,
         // 遵循官方Hook规则的验证
-        'react-hooks/exhaustive-deps': 1,
+        // 'react-hooks/exhaustive-deps': 1,
         'react-hooks/rules-of-hooks': 2,
     },
     // 配置插件

@@ -19,7 +19,8 @@ export const novelReducer = handleActions(
   {
     [ACTION_TYPES.FETCH_NOVELS]: (state: NovelStateType) => ({
       ...state,
-      isLoading: true
+      isLoading: true,
+      data: []
     }),
     [ACTION_TYPES.FETCH_NOVELS_OK]: (
       state: NovelStateType,
@@ -27,11 +28,12 @@ export const novelReducer = handleActions(
     ) => ({
       ...state,
       data: action.payload,
-      loadingFlag: false
+      isLoading: false
     }),
     [ACTION_TYPES.FETCH_NOVELS_NG]: (state: NovelStateType) => ({
       ...state,
-      loadingFlag: false
+      isLoading: false,
+      data: []
     })
   },
   initialState

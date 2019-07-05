@@ -1,16 +1,19 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
-import thunk from "redux-thunk";
+// import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter, routerMiddleware } from "connected-react-router";
 import { novelReducer } from "../reducers/novel";
 import { createLogger } from "redux-logger";
 import { reduxCatch } from "../middleware";
+import createSagaMiddleware from "redux-saga";
+import { watchSearchNovels } from "../sagas/novel";
 
 // 状态变化记录中间件
 const loggerMiddleware = createLogger();
 // 浏览器history对象
 export const history = createBrowserHistory();
-// 定义应用程序状态树的结构类型
+
+const sagaMiddleware = createSagaMiddleware();
 
 // 将各种reducer合并为一个根reducer
 const rootReducer = combineReducers({
@@ -19,6 +22,7 @@ const rootReducer = combineReducers({
   router: connectRouter(history)
 });
 
+// 定义应用程序状态树的结构类型
 // 通过rootReducer 推断状态形状
 export type AppStateType = ReturnType<typeof rootReducer>;
 
@@ -28,7 +32,8 @@ export const store = createStore(
   rootReducer,
   // 应用中间件
   applyMiddleware(
-    thunk,
+    // thunk,
+    sagaMiddleware,
     routerMiddleware(history),
     loggerMiddleware,
     reduxCatch((error: Error) => {
@@ -37,3 +42,5 @@ export const store = createStore(
     })
   )
 );
+
+sagaMiddleware.run(watchSearchNovels);
