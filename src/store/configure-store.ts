@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
-// import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter, routerMiddleware } from "connected-react-router";
 import { novelReducer } from "../reducers/novel";
@@ -12,7 +11,7 @@ import { watchSearchNovels } from "../sagas/novel";
 const loggerMiddleware = createLogger();
 // 浏览器history对象
 export const history = createBrowserHistory();
-
+// saga 中间件
 const sagaMiddleware = createSagaMiddleware();
 
 // 将各种reducer合并为一个根reducer
@@ -32,7 +31,6 @@ export const store = createStore(
   rootReducer,
   // 应用中间件
   applyMiddleware(
-    // thunk,
     sagaMiddleware,
     routerMiddleware(history),
     loggerMiddleware,
@@ -42,5 +40,5 @@ export const store = createStore(
     })
   )
 );
-
+// 启动 saga
 sagaMiddleware.run(watchSearchNovels);
