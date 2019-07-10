@@ -1,6 +1,9 @@
 {
+    // 开启eslint对javascript文件的检查
     "eslint.enable": true,
+    // 开启保存文件时是否启用eslint规则自动修改
     "eslint.autoFixOnSave": true,
+    // 配置eslint验证的语言
     "eslint.validate": [
         "javascript",
         "javascriptreact",
@@ -13,18 +16,24 @@
             "autoFix": true
         }
     ],
+    // 关闭保存时格式化文件
     "editor.formatOnSave": false,
+    // 开启js文件自动保存格式化
     "[javascript]": {
         "editor.formatOnSave": true
     },
+    // 开启jsx文件自动保存格式化
     "[javascriptreact]": {
         "editor.formatOnSave": true
     },
+    // 开启ts文件自动保存格式化
     "[typescript]": {
         "editor.formatOnSave": true
     },
+    // 开启tsx文件自动保存格式化
     "[typescriptreact]": {
         "editor.formatOnSave": true
     },
+    // 开启prettier使用eslint的代码格式进行校验
     "prettier.eslintIntegration": true
 }
