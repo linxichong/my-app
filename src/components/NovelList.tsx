@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Novel } from "../types/novel";
 
+import "../styles/test.css";
+
 export interface NovelListProps {
   novels: Novel[];
 }
