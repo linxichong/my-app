@@ -1,7 +1,14 @@
 // 将每个JS中包含的CSS提取为独立文件
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // 允许通过读取browserslist配置来部分加载 normalize.css或sanitize.css
-const postcssNormalize = require('postcss-normalize');
+const postcssNormalize = require("postcss-normalize");
+const path = require("path");
+const fs = require("fs");
+
+// 解决相对路径问题
+const appDirectory = fs.realpathSync(process.cwd());
+// 获取实际路径
+const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 // 定义正则匹配
 const cssRegex = /\.css$/;
@@ -9,7 +16,7 @@ const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
-const getWebpackRules = (webpackEnv) => {
+const getCssRules = webpackEnv => {
   // 是否为开发环境
   const isEnvDevelopment = webpackEnv === "development";
   // 是否为产品环境
@@ -20,46 +27,46 @@ const getWebpackRules = (webpackEnv) => {
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
       // 开发环境使用style-loader
-      isEnvDevelopment && require.resolve('style-loader'),
+      isEnvDevelopment && require.resolve("style-loader"),
       // 生产环境使用MiniCssExtractPlugin.loader
       isEnvProduction && {
         loader: MiniCssExtractPlugin.loader
       },
       {
-        loader: require.resolve('css-loader'),
-        options: cssOptions,
+        loader: require.resolve("css-loader"),
+        options: cssOptions
       },
       {
         // 启用postcss
-        loader: require.resolve('postcss-loader'),
+        loader: require.resolve("postcss-loader"),
         options: {
           // 解决引用外部css出现的异常
           // https://github.com/facebook/create-react-app/issues/2677
-          ident: 'postcss',
+          ident: "postcss",
           plugins: () => [
-            require('postcss-flexbugs-fixes'),
+            require("postcss-flexbugs-fixes"),
             // 允许你使用未来的 CSS 特性
-            require('postcss-preset-env')({
+            require("postcss-preset-env")({
               // 自动添加前缀
               autoprefixer: {
-                flexbox: 'no-2009',
+                flexbox: "no-2009"
               },
               // 填充语法允许使用标准stage3阶段
-              stage: 3,
+              stage: 3
             }),
-            postcssNormalize(),
+            postcssNormalize()
           ],
-          sourceMap: shouldUseSourceMap,
-        },
-      },
+          sourceMap: shouldUseSourceMap
+        }
+      }
     ].filter(Boolean);
     // 添加其他loader
     if (preProcessor) {
       loaders.push({
         loader: require.resolve(preProcessor),
         options: {
-          sourceMap: shouldUseSourceMap,
-        },
+          sourceMap: shouldUseSourceMap
+        }
       });
     }
     return loaders;
@@ -75,15 +82,15 @@ const getWebpackRules = (webpackEnv) => {
         // 是否开启sourceMap
         sourceMap: shouldUseSourceMap
       }),
-      sideEffects: true,
+      sideEffects: true
     },
     {
       test: cssModuleRegex,
       use: getStyleLoaders({
         importLoaders: 1,
         sourceMap: shouldUseSourceMap,
-        modules: true,
-      }),
+        modules: true
+      })
     },
     {
       test: sassRegex,
@@ -91,11 +98,11 @@ const getWebpackRules = (webpackEnv) => {
       use: getStyleLoaders(
         {
           importLoaders: 2,
-          sourceMap: shouldUseSourceMap,
+          sourceMap: shouldUseSourceMap
         },
-        'sass-loader'
+        require.resolve("sass-loader")
       ),
-      sideEffects: true,
+      sideEffects: true
     },
     {
       test: sassModuleRegex,
@@ -103,12 +110,46 @@ const getWebpackRules = (webpackEnv) => {
         {
           importLoaders: 2,
           sourceMap: shouldUseSourceMap,
-          modules: true,
+          modules: true
         },
-        'sass-loader'
-      ),
-    },
-  ]
+        require.resolve("sass-loader")
+      )
+    }
+  ];
 };
 
-module.exports = getWebpackRules;
+const getModuleRules = webpackEnv => {
+  return [
+    // 额外规则配置
+    {
+      test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+      loader: require.resolve("url-loader"),
+      options: {
+        limit: 10000,
+        name: "static/media/[name].[hash:8].[ext]"
+      }
+    },
+    {
+      test: /\.(ts|tsx|js|jsx)$/,
+      exclude: /node_modules/,
+      include: resolveApp("src"),
+      use: {
+        loader: require.resolve("babel-loader")
+      }
+    },
+    ...getCssRules(webpackEnv),
+    {
+      loader: require.resolve("file-loader"),
+      // Exclude `js` files to keep "css" loader working as it injects
+      // its runtime that would otherwise be processed through "file" loader.
+      // Also exclude `html` and `json` extensions so they get processed
+      // by webpacks internal loaders.
+      exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
+      options: {
+        name: "static/media/[name].[hash:8].[ext]"
+      }
+    }
+  ];
+};
+
+module.exports = getModuleRules;
