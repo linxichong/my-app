@@ -1,6 +1,6 @@
 const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
-const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+// const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -21,9 +21,9 @@ module.exports = merge(common, {
   // 控制是否生成，以及如何生成 source map
   devtool: false,
   plugins: [
-    new UglifyJSPlugin({
-      sourceMap: true
-    }),
+    // new UglifyJSPlugin({
+    //   sourceMap: true
+    // }),
     // 预设程序执行环境
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(webpackDev)
