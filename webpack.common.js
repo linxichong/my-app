@@ -78,7 +78,5 @@ module.exports = {
     },
     // manifest分割配置
     runtimeChunk: true
-  },
-  // 开启 bundle 文件大小警告
-  performance: true
+  }
 };

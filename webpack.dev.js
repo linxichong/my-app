@@ -11,8 +11,6 @@ const rules = getModuleRules(webpackDev);
 // 获取环境变量定义
 const env = getEnvVariables(webpackDev);
 
-console.log(env.stringified);
-
 module.exports = merge(common, {
   // 标识配置为开发用
   mode: webpackDev,

@@ -5,9 +5,9 @@ const postcssNormalize = require("postcss-normalize");
 const path = require("path");
 const fs = require("fs");
 
-// 解决相对路径问题
+// 获取nodejs执行的工作目录
 const appDirectory = fs.realpathSync(process.cwd());
-// 获取实际路径
+// 获取相对于工作目录的相对路径的真实路径
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 // 定义正则匹配
@@ -32,6 +32,7 @@ const getCssRules = webpackEnv => {
       isEnvProduction && {
         loader: MiniCssExtractPlugin.loader
       },
+      // 解释 @import 和 url() ，会 import/require() 后再解析它们，主要用于将 CSS 转换为JS模块
       {
         loader: require.resolve("css-loader"),
         options: cssOptions
@@ -60,7 +61,7 @@ const getCssRules = webpackEnv => {
         }
       }
     ].filter(Boolean);
-    // 添加其他loader
+    // 添加其他loader sass或less等
     if (preProcessor) {
       loaders.push({
         loader: require.resolve(preProcessor),
@@ -118,9 +119,10 @@ const getCssRules = webpackEnv => {
   ];
 };
 
+// 获取完整的模块处理规则
 const getModuleRules = webpackEnv => {
   return [
-    // 额外规则配置
+    // 解析图片资源
     {
       test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
       loader: require.resolve("url-loader"),
@@ -129,6 +131,7 @@ const getModuleRules = webpackEnv => {
         name: "static/media/[name].[hash:8].[ext]"
       }
     },
+    // babel-loader解析typescript
     {
       test: /\.(ts|tsx|js|jsx)$/,
       exclude: /node_modules/,
@@ -137,7 +140,9 @@ const getModuleRules = webpackEnv => {
         loader: require.resolve("babel-loader")
       }
     },
+    // css解析相关loaders
     ...getCssRules(webpackEnv),
+    // 其他文件解析
     {
       loader: require.resolve("file-loader"),
       // Exclude `js` files to keep "css" loader working as it injects
