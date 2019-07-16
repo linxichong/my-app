@@ -1,6 +1,6 @@
 const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
-const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+// const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -9,9 +9,13 @@ const safePostCssParser = require("postcss-safe-parser");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const getModuleRules = require("./config/webpack/getModuleRules");
+const getEnvVariables = require("./config/webpack/getEnvVariables");
+// 生产环境
 const webpackDev = "production";
 // 定义模块解析规则
 const rules = getModuleRules(webpackDev);
+// 获取环境变量定义
+const env = getEnvVariables(webpackDev);
 
 module.exports = merge(common, {
   // 标识配置为生产用
@@ -21,16 +25,9 @@ module.exports = merge(common, {
   // 控制是否生成，以及如何生成 source map
   devtool: false,
   plugins: [
-    new UglifyJSPlugin({
-      sourceMap: true
-    }),
     // 预设程序执行环境
-    new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(webpackDev)
-    }),
+    new webpack.DefinePlugin(env.stringified),
     new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
       filename: "static/css/[name].[contenthash:8].css",
       chunkFilename: "static/css/[name].[contenthash:8].chunk.css"
     }),

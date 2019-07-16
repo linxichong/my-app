@@ -1,5 +1,4 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const PnpWebpackPlugin = require("pnp-webpack-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const path = require("path");
 const webpack = require("webpack");
@@ -11,23 +10,14 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
     modules: ["node_modules", path.resolve(__dirname, "src")],
-    plugins: [
-      // Adds support for installing with Plug'n'Play, leading to faster installs and adding
-      // guards against forgotten dependencies and such.
-      PnpWebpackPlugin
-    ]
+    plugins: []
   },
-  resolveLoader: {
-    plugins: [
-      // Also related to Plug'n'Play, but this time it tells Webpack to load its loaders
-      // from the current package.
-      PnpWebpackPlugin.moduleLoader(module)
-    ]
-  },
+  resolveLoader: {},
   // 管理插件，通过插件实现增强功能
   plugins: [
     // 自动清理dist
     new CleanWebpackPlugin(),
+    // 生成清单目录
     new ManifestPlugin({
       fileName: "asset-manifest.json",
       generate: (seed, files) => {
@@ -69,10 +59,26 @@ module.exports = {
   optimization: {
     // 代码块分割配置
     splitChunks: {
-      chunks: "all",
-      name: false
+      cacheGroups: {
+        vendor: {
+          name: "vendor",
+          chunks: "all",
+          test: /node_modules/,
+          priority: 20,
+          reuseExistingChunk: true
+        },
+        commons: {
+          name: "commons",
+          chunks: "initial",
+          minChunks: 2,
+          minSize: 0,
+          reuseExistingChunk: true
+        }
+      }
     },
     // manifest分割配置
     runtimeChunk: true
-  }
+  },
+  // 开启 bundle 文件大小警告
+  performance: true
 };

@@ -3,9 +3,15 @@ const common = require("./webpack.common.js");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const getModuleRules = require("./config/webpack/getModuleRules");
+const getEnvVariables = require("./config/webpack/getEnvVariables");
+// 开发环境
 const webpackDev = "development";
 // 定义模块解析规则
 const rules = getModuleRules(webpackDev);
+// 获取环境变量定义
+const env = getEnvVariables(webpackDev);
+
+console.log(env.stringified);
 
 module.exports = merge(common, {
   // 标识配置为开发用
@@ -27,9 +33,7 @@ module.exports = merge(common, {
     // 启用 HMR 热更新，建议用于开发环境
     new webpack.HotModuleReplacementPlugin(),
     // 预设程序执行环境
-    new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(webpackDev)
-    }),
+    new webpack.DefinePlugin(env.stringified),
     // 根据模板生成html
     new HtmlWebpackPlugin({
       title: "My App",
