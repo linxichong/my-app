@@ -14,8 +14,6 @@ const getEnvVariables = webpackEnv => {
     }
   });
 
-  console.log(process.env)
-
   // 假定应用程序中所使用的环境变量都是以 APP_ 开头
   const VAR_PREFIX = /^APP_/i;
   // 生成需要注入的变量
@@ -39,8 +37,6 @@ const getEnvVariables = webpackEnv => {
     }, {})
   };
 
-
-  console.log(stringified)
   return { raw, stringified };
 };
 

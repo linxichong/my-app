@@ -10,6 +10,8 @@ const webpackDev = "development";
 const rules = getModuleRules(webpackDev);
 // 获取环境变量定义
 const env = getEnvVariables(webpackDev);
+// 将环境定义注入到Nodejs中，后续Babel等配置会使用该变量
+process.env.NODE_ENV = webpackDev;
 
 module.exports = merge(common, {
   // 标识配置为开发用
