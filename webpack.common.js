@@ -10,9 +10,7 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
     modules: ["node_modules", path.resolve(__dirname, "src")],
-    plugins: []
   },
-  resolveLoader: {},
   // 管理插件，通过插件实现增强功能
   plugins: [
     // 自动清理dist
@@ -21,7 +19,7 @@ module.exports = {
     new ManifestPlugin({
       fileName: "asset-manifest.json",
       generate: (seed, files) => {
-        const manifestFiles = files.reduce(function(manifest, file) {
+        const manifestFiles = files.reduce(function (manifest, file) {
           manifest[file.name] = file.path;
           return manifest;
         }, seed);
@@ -61,17 +59,27 @@ module.exports = {
     splitChunks: {
       cacheGroups: {
         vendor: {
+          // 抽取出来文件的名字，默认为 true，表示自动生成文件名
           name: "vendor",
+          // 表示从所有chunks里面抽取代码, 可选值为initial、async、all，也可以自定义函数
           chunks: "all",
+          // 表示要过滤 modules, 这里限制为 node_modules
           test: /node_modules/,
+          // 表示抽取权重，数字越大表示优先级越高。
           priority: 20,
+          // 表示是否使用已有的 chunk,如果为 true 则表示如果当前的 chunk 包含的模块已经被抽取出去了，那么将不会重新生成新的
           reuseExistingChunk: true
         },
         commons: {
+          // 抽取出来文件的名字，默认为 true，表示自动生成文件名
           name: "commons",
+          // 从初始chunks里面抽取代码
           chunks: "initial",
+          // 表示被引用次数，默认为1
           minChunks: 2,
+          // 表示抽取出来的文件在压缩前的最小大小
           minSize: 0,
+          // 表示是否使用已有的 chunk,如果为 true 则表示如果当前的 chunk 包含的模块已经被抽取出去了，那么将不会重新生成新的
           reuseExistingChunk: true
         }
       }
