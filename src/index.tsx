@@ -1,7 +1,16 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { store } from "./redux/store/configureStore";
 
-import App from "./containers/App";
+import App from "./containers/AppContainer";
 import "./styles/App.css";
+import "./i18n";
+import "./common/addValidateMethods";
 
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("app")
+);

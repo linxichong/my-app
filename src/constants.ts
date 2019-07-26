@@ -3,7 +3,6 @@ export const PATHS = {
   TOP: "/",
   ABOUT: "/about",
   NOVELS: "/novels",
-  UI: "/materialui"
 };
 
 // 定义ACTION类型
@@ -13,7 +12,9 @@ export const ACTION_TYPES = {
   // 请求成功
   FETCH_NOVELS_OK: "FETCH_NOVELS_OK",
   // 请求失败
-  FETCH_NOVELS_NG: "FETCH_NOVELS_NG"
+  FETCH_NOVELS_NG: "FETCH_NOVELS_NG",
+  // 切换侧边栏
+  TOGGLE_SIDEBAR: "TOGGLE_SIDEBAR"
 };
 
 // 定义API请求路径

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Novel } from "../types/novel";
+import { Novel } from "../types";
 
 import "../styles/test.css";
 

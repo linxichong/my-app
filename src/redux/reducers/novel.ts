@@ -1,5 +1,5 @@
-import { ACTION_TYPES } from "../constants";
-import { Novel } from "../types/novel";
+import { ACTION_TYPES } from "../../constants";
+import { Novel } from "../../types";
 import { handleActions, Action } from "redux-actions";
 
 // 定义管理状态树的结构类型
@@ -9,13 +9,13 @@ export interface NovelStateType {
 }
 
 // 初始化状态
-export const initialState: NovelStateType = {
+const initialState: NovelStateType = {
   isLoading: false,
   data: []
 };
 
 // 根据不同的Action生成Reducer
-export const novelReducer = handleActions(
+const novelReducer = handleActions(
   {
     [ACTION_TYPES.FETCH_NOVELS]: (state: NovelStateType) => ({
       ...state,
@@ -38,3 +38,5 @@ export const novelReducer = handleActions(
   },
   initialState
 );
+
+export default novelReducer;

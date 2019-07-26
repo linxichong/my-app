@@ -1,11 +1,12 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { createBrowserHistory } from "history";
 import { connectRouter, routerMiddleware } from "connected-react-router";
-import { novelReducer } from "../reducers/novel";
+import novelReducer from "../reducers/novel";
 import { createLogger } from "redux-logger";
-import { reduxCatch } from "../middleware";
+import { reduxCatch } from "../../middleware";
 import createSagaMiddleware from "redux-saga";
 import { watchSearchNovels } from "../sagas/novel";
+import layoutReducer from "../reducers/layout";
 
 // 状态变化记录中间件
 const loggerMiddleware = createLogger();
@@ -17,6 +18,8 @@ const sagaMiddleware = createSagaMiddleware();
 // 将各种reducer合并为一个根reducer
 const rootReducer = combineReducers({
   novel: novelReducer,
+  // UI相关通用状态
+  layout: layoutReducer,
   // 将路由与浏览器历史关联
   router: connectRouter(history)
 });

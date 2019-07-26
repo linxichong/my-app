@@ -1,8 +1,8 @@
 import * as React from "react";
 import NovelList from "../components/NovelList";
-import { AppStateType } from "../store/configure-store";
-import { fetchNovels } from "../actions/novel";
-import { Novel } from "../types/novel";
+import { AppStateType } from "../redux/store/configureStore";
+import { fetchNovels } from "../redux/actions/novel";
+import { Novel } from "../types";
 import { connect } from "react-redux";
 
 export interface NovelContainerProps {
