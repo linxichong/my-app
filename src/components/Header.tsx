@@ -3,6 +3,7 @@ import * as React from "react";
 import { PATHS } from "../constants";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Typography, Link } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header: React.SFC = props => {
   const classes = useStyles(props);
+  const { i18n } = useTranslation();
 
   return (
     <AppBar position="fixed">
@@ -40,6 +42,21 @@ const Header: React.SFC = props => {
           <Link href={PATHS.NOVELS} color="inherit" className={classes.link}>
             Novel List
           </Link>
+        </Typography>
+        <Typography>
+          {["cn", "en"].map((lng, idx) => {
+            return (
+              <Link
+                key={idx}
+                href={"#"}
+                color="inherit"
+                className={classes.link}
+                onClick={() => i18n.changeLanguage(lng)}
+              >
+                {lng}
+              </Link>
+            );
+          })}
         </Typography>
       </Toolbar>
     </AppBar>
