@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     link: {
       textDecoration: "none",
-      paddingLeft: theme.spacing(4.5),
-      paddingTop: theme.spacing(2),
-      paddingBottom: theme.spacing(2),
+      paddingLeft: theme.spacing() * 4.5,
+      paddingTop: theme.spacing() * 2,
+      paddingBottom: theme.spacing() * 2,
       "&:hover, &:focus": {
         backgroundColor: theme.palette.background.light
       }
@@ -59,16 +59,16 @@ const useStyles = makeStyles((theme: Theme) =>
       opacity: 0
     },
     nestedList: {
-      paddingLeft: theme.spacing(4.5) + 40
+      paddingLeft: theme.spacing() * 4.5 + 40
     },
     sectionTitle: {
-      marginLeft: theme.spacing(4.5),
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2)
+      marginLeft: theme.spacing() * 4.5,
+      marginTop: theme.spacing() * 2,
+      marginBottom: theme.spacing() * 2
     },
     divider: {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(4),
+      marginTop: theme.spacing() * 2,
+      marginBottom: theme.spacing() * 4,
       height: 1,
       backgroundColor: "#D8D8D880"
     }
