@@ -22,7 +22,10 @@ import themes, { overrides } from "../themes";
 const About = React.lazy(() => import("../containers/About"));
 const NovelContainer = React.lazy(() => import("../containers/NovelContainer"));
 
-const theme = createMuiTheme({ ...themes.default, ...overrides });
+const theme = createMuiTheme({
+  ...themes.default,
+  ...overrides
+});
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -53,7 +56,7 @@ type AppViewProps = {} & LayoutProps;
 
 const AppView: React.SFC<AppViewProps> = props => {
   const classes = useStyles(props);
-  const { isSidebarOpened } = props;
+  const { isSideBarOpened } = props;
 
   return (
     <MuiThemeProvider theme={theme}>
@@ -65,7 +68,7 @@ const AppView: React.SFC<AppViewProps> = props => {
             <SideBarContainer />
             <div
               className={classNames(classes.content, {
-                [classes.contentShift]: isSidebarOpened
+                [classes.contentShift]: isSideBarOpened
               })}
             >
               <div className={classes.fakeToolbar} />

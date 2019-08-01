@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   AppBar,
   Toolbar,
-  Typography,
   IconButton,
   MenuItem,
   Menu,
@@ -17,32 +16,35 @@ import {
 } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
 import { LayoutProps } from "../types";
-import classNames from "classnames";
+import { Typography } from "../common/components/Wrappers";
+import { LANGUAGES } from "../constants";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     logotype: {
       color: "white",
-      marginLeft: theme.spacing() * 2.5,
-      marginRight: theme.spacing() * 2.5,
+      // marginLeft: theme.spacing(2.5),
+      // marginRight: theme.spacing(2.5),
       fontWeight: 500,
       fontSize: 18,
-      whiteSpace: "nowrap",
-      [theme.breakpoints.down("xs")]: {
-        display: "none"
-      }
+      whiteSpace: "nowrap"
+      // [theme.breakpoints.down("xs")]: {
+      //   display: "none"
+      // }
     },
     appBar: {
+      // vw：1vw等于视口(viewport)宽度的1% vh：1vh等于视口高度的1%
       width: "100vw",
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(["margin"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen
-      })
+      // 元素堆叠顺序高于侧边栏
+      zIndex: theme.zIndex.drawer + 1
+      // transition: theme.transitions.create(["margin"], {
+      //   easing: theme.transitions.easing.sharp,
+      //   duration: theme.transitions.duration.leavingScreen
+      // })
     },
     toolbar: {
-      paddingLeft: theme.spacing() * 2,
-      paddingRight: theme.spacing() * 2
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2)
     },
     // hide: {
     //   display: "none"
@@ -53,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
     // search: {
     //   position: "relative",
     //   borderRadius: 25,
-    //   paddingLeft: theme.spacing() * 2.5,
+    //   paddingLeft: theme.spacing(2.5),
     //   width: 36,
     //   backgroundColor: fade(theme.palette.common.black, 0),
     //   transition: theme.transitions.create(["background-color", "width"]),
@@ -100,7 +102,7 @@ const useStyles = makeStyles((theme: Theme) =>
     //   flexDirection: "column"
     // },
     headerMenu: {
-      marginTop: theme.spacing() * 7
+      marginTop: theme.spacing(7)
     },
     headerMenuList: {
       display: "flex",
@@ -113,32 +115,32 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     headerMenuButton: {
-      marginLeft: theme.spacing() * 2,
-      padding: theme.spacing() / 2
+      marginLeft: theme.spacing(2),
+      padding: theme.spacing(0.5)
     },
     headerMenuButtonCollapse: {
-      marginRight: theme.spacing() * 2
+      marginRight: theme.spacing(2)
     },
     headerIcon: {
       fontSize: 28,
-      color: "rgba(255, 255, 255, 0.35)"
-    },
-    headerIconCollapse: {
       color: "white"
-    },
+    }
+    // headerIconCollapse: {
+    //   color: "white"
+    // }
     // profileMenu: {
     //   minWidth: 265
     // },
     // profileMenuUser: {
     //   display: "flex",
     //   flexDirection: "column",
-    //   padding: theme.spacing() * 2
+    //   padding: theme.spacing(2)
     // },
     // profileMenuItem: {
     //   color: theme.palette.text.hint
     // },
     // profileMenuIcon: {
-    //   marginRight: theme.spacing() * 2,
+    //   marginRight: theme.spacing(2),
     //   color: theme.palette.text.hint
     // },
     // profileMenuLink: {
@@ -160,7 +162,7 @@ const useStyles = makeStyles((theme: Theme) =>
     //   display: "flex",
     //   flexDirection: "column",
     //   alignItems: "center",
-    //   marginRight: theme.spacing() * 2
+    //   marginRight: theme.spacing(2)
     // },
     // messageNotificationBodySide: {
     //   alignItems: "flex-start",
@@ -168,12 +170,12 @@ const useStyles = makeStyles((theme: Theme) =>
     // },
     // sendMessageButton: {
     //   margin: theme.spacing() * 4,
-    //   marginTop: theme.spacing() * 2,
-    //   marginBottom: theme.spacing() * 2,
+    //   marginTop: theme.spacing(2),
+    //   marginBottom: theme.spacing(2),
     //   textTransform: "none"
     // },
     // sendButtonIcon: {
-    //   marginLeft: theme.spacing() * 2
+    //   marginLeft: theme.spacing(2)
     // }
   })
 );
@@ -187,7 +189,7 @@ type HeaderViewProps = {
 const HeaderView: React.SFC<HeaderViewProps> = props => {
   const { i18n } = useTranslation();
   const classes = useStyles(props);
-  const { isSidebarOpened, toggleSideBar } = props;
+  const { isSideBarOpened, toggleSideBar } = props;
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -195,26 +197,26 @@ const HeaderView: React.SFC<HeaderViewProps> = props => {
         <IconButton
           color="inherit"
           onClick={toggleSideBar}
-          className={classNames(
-            classes.headerMenuButton,
-            classes.headerMenuButtonCollapse
-          )}
+          // className={classNames(
+          //   classes.headerMenuButton,
+          //   classes.headerMenuButtonCollapse
+          // )}
         >
-          {isSidebarOpened ? (
+          {isSideBarOpened ? (
             <ArrowBackIcon
               classes={{
-                root: classNames(classes.headerIcon, classes.headerIconCollapse)
+                root: classes.headerIcon
               }}
             />
           ) : (
             <MenuIcon
               classes={{
-                root: classNames(classes.headerIcon, classes.headerIconCollapse)
+                root: classes.headerIcon
               }}
             />
           )}
         </IconButton>
-        <Typography variant="h6" className={classes.logotype}>
+        <Typography variant="h6" weight="medium" className={classes.logotype}>
           My App
         </Typography>
         <div className={classes.grow} />
@@ -233,16 +235,16 @@ const HeaderView: React.SFC<HeaderViewProps> = props => {
           className={classes.headerMenu}
           MenuListProps={{ className: classes.headerMenuList }}
         >
-          {["cn", "en"].map((lng, idx) => (
+          {LANGUAGES.map(lng => (
             <MenuItem
-              key={idx}
+              key={lng.key}
               onClick={() => {
                 props.closeLangMenu();
-                i18n.changeLanguage(lng);
+                i18n.changeLanguage(lng.key);
               }}
               className={classes.headerMenuItem}
             >
-              {lng}
+              {lng.lable}
             </MenuItem>
           ))}
         </Menu>

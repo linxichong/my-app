@@ -1,8 +1,10 @@
+import { Language } from "./types";
+
 // 路由配置
 export const PATHS = {
   TOP: "/",
   ABOUT: "/about",
-  NOVELS: "/novels",
+  NOVELS: "/novels"
 };
 
 // 定义ACTION类型
@@ -21,3 +23,9 @@ export const ACTION_TYPES = {
 export const API_URLS = {
   NOVELS: `/novels`
 };
+
+// 网站所支持语言
+export const LANGUAGES: Language[] = [
+  { key: "zh", lable: "zh 中文" },
+  { key: "en", lable: "en English" }
+];

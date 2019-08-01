@@ -1,12 +1,12 @@
 import HeaderView from "../components/HeaderView";
 import { compose, withState, withHandlers } from "recompose";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { AppStateType } from "../redux/store/configureStore";
 import { toggleSideBar } from "../redux/actions/layout";
 
 // const mapStateToProps = (state: AppStateType) => {
 //   return {
-//     isSidebarOpened: state.layout.isSidebarOpened
+//     isSideBarOpened: state.layout.isSideBarOpened
 //   }
 // }
 
@@ -21,9 +21,9 @@ import { toggleSideBar } from "../redux/actions/layout";
 export default compose(
   connect(
     (state: AppStateType) => ({
-      isSidebarOpened: state.layout.isSidebarOpened,
+      isSideBarOpened: state.layout.isSideBarOpened
     }),
-    { toggleSideBar },
+    { toggleSideBar }
   ),
   withState("langMenu", "setLangMenu", null),
   withHandlers({

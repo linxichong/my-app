@@ -1,25 +1,26 @@
-import * as React from "react";
+import React from "react";
 import {
   Collapse,
   Divider,
   List,
   ListItem,
   ListItemIcon,
-  ListItemText,
-  Typography
+  ListItemText
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Inbox as InboxIcon } from "@material-ui/icons";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import classNames from "classnames";
+import classNames from "classNames";
+import { Typography } from "../common/components/Wrappers";
+import Dot from "../common/components/Dot";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     link: {
       textDecoration: "none",
-      paddingLeft: theme.spacing() * 4.5,
-      paddingTop: theme.spacing() * 2,
-      paddingBottom: theme.spacing() * 2,
+      paddingLeft: theme.spacing(4.5),
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
       "&:hover, &:focus": {
         backgroundColor: theme.palette.background.light
       }
@@ -59,16 +60,16 @@ const useStyles = makeStyles((theme: Theme) =>
       opacity: 0
     },
     nestedList: {
-      paddingLeft: theme.spacing() * 4.5 + 40
+      paddingLeft: theme.spacing(4.5) + 40
     },
     sectionTitle: {
-      marginLeft: theme.spacing() * 4.5,
-      marginTop: theme.spacing() * 2,
-      marginBottom: theme.spacing() * 2
+      marginLeft: theme.spacing(4.5),
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2)
     },
     divider: {
-      marginTop: theme.spacing() * 2,
-      marginBottom: theme.spacing() * 4,
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(4),
       height: 1,
       backgroundColor: "#D8D8D880"
     }
@@ -81,14 +82,16 @@ const SideBarLinkView = props => {
     link,
     icon,
     label,
-    children,
+    // children,
     location,
-    isSidebarOpened,
+    isSideBarOpened,
     nested,
     type,
-    isOpen,
-    toggleCollapse
+    isOpen
+    // toggleCollapse
   } = props;
+
+  console.log(link, location.pathname);
   const isLinkActive =
     link &&
     (location.pathname === link || location.pathname.indexOf(link) !== -1);
@@ -97,7 +100,7 @@ const SideBarLinkView = props => {
     return (
       <Typography
         className={classNames(classes.linkText, classes.sectionTitle, {
-          [classes.linkTextHidden]: !isSidebarOpened
+          [classes.linkTextHidden]: !isSideBarOpened
         })}
       >
         {label}
@@ -106,90 +109,90 @@ const SideBarLinkView = props => {
 
   if (type === "divider") return <Divider className={classes.divider} />;
 
-  if (!children)
-    return (
-      <ListItem
-        button
-        component={link && Link}
-        to={link}
-        className={classes.link}
+  // if (!children)
+  return (
+    <ListItem
+      button
+      component={link && Link}
+      to={link}
+      className={classes.link}
+      classes={{
+        root: classNames(classes.linkRoot, {
+          [classes.linkActive]: isLinkActive && !nested,
+          [classes.linkNested]: nested
+        })
+      }}
+      disableRipple
+    >
+      <ListItemIcon
+        className={classNames(classes.linkIcon, {
+          [classes.linkIconActive]: isLinkActive
+        })}
+      >
+        {nested ? <Dot color={isLinkActive && "primary"} /> : icon}
+      </ListItemIcon>
+      <ListItemText
         classes={{
-          root: classNames(classes.linkRoot, {
-            [classes.linkActive]: isLinkActive && !nested,
-            [classes.linkNested]: nested
+          primary: classNames(classes.linkText, {
+            [classes.linkTextActive]: isLinkActive,
+            [classes.linkTextHidden]: !isSideBarOpened
           })
         }}
-        disableRipple
-      >
-        <ListItemIcon
-          className={classNames(classes.linkIcon, {
-            [classes.linkIconActive]: isLinkActive
-          })}
-        >
-          {nested ? <div /> : icon}
-        </ListItemIcon>
-        <ListItemText
-          classes={{
-            primary: classNames(classes.linkText, {
-              [classes.linkTextActive]: isLinkActive,
-              [classes.linkTextHidden]: !isSidebarOpened
-            })
-          }}
-          primary={label}
-        />
-      </ListItem>
-    );
-
-  return (
-    <React.Fragment>
-      <ListItem
-        button
-        component={link && Link}
-        onClick={toggleCollapse}
-        className={classes.link}
-        to={link}
-        disableRipple
-      >
-        <ListItemIcon
-          className={classNames(classes.linkIcon, {
-            [classes.linkIconActive]: isLinkActive
-          })}
-        >
-          {icon ? icon : <InboxIcon />}
-        </ListItemIcon>
-        <ListItemText
-          classes={{
-            primary: classNames(classes.linkText, {
-              [classes.linkTextActive]: isLinkActive,
-              [classes.linkTextHidden]: !isSidebarOpened
-            })
-          }}
-          primary={label}
-        />
-      </ListItem>
-      {children && (
-        <Collapse
-          in={isOpen && isSidebarOpened}
-          timeout="auto"
-          unmountOnExit
-          className={classes.nestedList}
-        >
-          <List component="div" disablePadding>
-            {children.map(childrenLink => (
-              <SideBarLinkView
-                key={childrenLink && childrenLink.link}
-                location={location}
-                isSidebarOpened={isSidebarOpened}
-                classes={classes}
-                nested
-                {...childrenLink}
-              />
-            ))}
-          </List>
-        </Collapse>
-      )}
-    </React.Fragment>
+        primary={label}
+      />
+    </ListItem>
   );
+
+  // return (
+  //   <React.Fragment>
+  //     <ListItem
+  //       button
+  //       component={link && Link}
+  //       onClick={toggleCollapse}
+  //       className={classes.link}
+  //       to={link}
+  //       disableRipple
+  //     >
+  //       <ListItemIcon
+  //         className={classNames(classes.linkIcon, {
+  //           [classes.linkIconActive]: isLinkActive
+  //         })}
+  //       >
+  //         {icon ? icon : <InboxIcon />}
+  //       </ListItemIcon>
+  //       <ListItemText
+  //         classes={{
+  //           primary: classNames(classes.linkText, {
+  //             [classes.linkTextActive]: isLinkActive,
+  //             [classes.linkTextHidden]: !isSideBarOpened
+  //           })
+  //         }}
+  //         primary={label}
+  //       />
+  //     </ListItem>
+  //     {children && (
+  //       <Collapse
+  //         in={isOpen && isSideBarOpened}
+  //         timeout="auto"
+  //         unmountOnExit
+  //         className={classes.nestedList}
+  //       >
+  //         <List component="div" disablePadding>
+  //           {children.map(childrenLink => (
+  //             <SideBarLinkView
+  //               key={childrenLink && childrenLink.link}
+  //               location={location}
+  //               isSideBarOpened={isSideBarOpened}
+  //               classes={classes}
+  //               nested
+  //               {...childrenLink}
+  //             />
+  //           ))}
+  //         </List>
+  //       </Collapse>
+  //     )}
+  //   </React.Fragment>
+  // );
 };
 
 export default SideBarLinkView;

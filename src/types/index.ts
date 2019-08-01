@@ -8,7 +8,12 @@ export interface Novel {
 import { NavLinkProps } from "react-router-dom";
 
 export interface LayoutProps {
-  isSidebarOpened: boolean;
+  isSideBarOpened: boolean;
   toggleSideBar: () => void;
   location: NavLinkProps["location"];
+}
+
+export interface Language {
+  key: string;
+  lable: string;
 }

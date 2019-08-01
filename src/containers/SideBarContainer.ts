@@ -3,7 +3,7 @@ import { compose, withState, withHandlers, lifecycle } from "recompose";
 import { connect } from "react-redux";
 import { AppStateType } from "../redux/store/configureStore";
 import { toggleSideBar } from "../redux/actions/layout";
-import { withTheme } from '@material-ui/core/styles';
+import { withTheme } from "@material-ui/core/styles";
 import { withRouter } from "react-router-dom";
 
 export default compose(
@@ -11,15 +11,13 @@ export default compose(
   withTheme,
   connect(
     (state: AppStateType) => ({
-      isSidebarOpened: state.layout.isSidebarOpened
+      isSideBarOpened: state.layout.isSideBarOpened
     }),
     { toggleSideBar }
   ),
   withState("isPermanent", "setPermanent", false),
   withHandlers({
     handleWindowWidthChange: ({ isPermanent, setPermanent, theme }) => () => {
-
-      console.log(theme)
       const windowWidth = window.innerWidth;
       const breakpointWidth = theme.breakpoints.values.md;
       const isSmallScreen = windowWidth < breakpointWidth;

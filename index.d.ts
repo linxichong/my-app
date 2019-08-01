@@ -10,3 +10,9 @@ declare module "yup" {
     ): StringSchema<T>;
   }
 }
+
+declare module "@material-ui/core/styles/createPalette" {
+  interface TypeBackground {
+    light: string;
+  }
+}

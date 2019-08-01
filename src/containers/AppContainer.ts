@@ -5,6 +5,6 @@ import { AppStateType } from "../redux/store/configureStore";
 
 export default compose(
   connect((state: AppStateType) => ({
-    isSidebarOpened: state.layout.isSidebarOpened
+    isSideBarOpened: state.layout.isSideBarOpened
   }))
 )(AppView);
