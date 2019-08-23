@@ -3,15 +3,15 @@ import * as Yup from "yup";
 // 多语言命名空间
 const ns = "translation:";
 // 表单中字段显示文本
-const field_path_prefix = `${ns}label`;
+const fieldPathPrefix = `${ns}label`;
 // 表单中字段对应的验证文本
-const check_path_prefix = `${ns}validate`;
+const checkPathPrefix = `${ns}validate`;
 
 // rules为表单字段需要生成的验证规则
 // t为多语言转换函数
 const getYupSchema = (rules, t) => {
-  let schema = {};
-  for (let fieldName in rules) {
+  const schema = {};
+  for (const fieldName in rules) {
     // 处理嵌套对象 数组:xx$Array 对象:xx$Obj
     const splits = fieldName.split("$");
     // 获取嵌套对象类型
@@ -22,7 +22,7 @@ const getYupSchema = (rules, t) => {
     // 分离出字段名
     const splitfieldName = splits[0];
     // 获取对应语言的字段文本
-    const name = t(`${field_path_prefix}.${fieldName}`);
+    const name = t(`${fieldPathPrefix}.${fieldName}`);
     // 根据字段获取规则对象
     const source = rules[fieldName];
     // 如果值是数组的情况（非嵌套对象）
@@ -41,12 +41,12 @@ const getYupSchema = (rules, t) => {
           total = Yup[type]();
         }
         // 获取对应语言所显示的错误文本
-        const message = t(`${check_path_prefix}.${validateName}`, {
+        const message = t(`${checkPathPrefix}.${validateName}`, {
           name: name,
           ...current.params
         });
         // 处理验证方法参数，参数必须遵照API文档顺序
-        let params = [];
+        const params = [];
         if (current.params) {
           for (const key in current.params) {
             params.push(current.params[key]);

@@ -12,7 +12,8 @@ module.exports = {
         // 遵循官方Hook规则的验证
         // 'react-hooks/exhaustive-deps': 1,
         'react-hooks/rules-of-hooks': 2,
-        "import/no-unresolved": 0
+        "import/no-unresolved": 0,
+        "@typescript-eslint/camelcase": 0
     },
     // 配置插件
     "plugins": [

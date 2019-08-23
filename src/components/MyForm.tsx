@@ -19,7 +19,7 @@ const initialValues: FormValues = {
 const rules: ValidateFieldDef<FormValues> = {
   name: [
     // 必输
-    { name: VALIDATE_TYPES.STR_REQUIRED},
+    { name: VALIDATE_TYPES.STR_REQUIRED },
     // 范围验证（自定义）
     { name: VALIDATE_TYPES.STR_RANGE, params: { min: 1, max: 12 } }
   ],
@@ -56,9 +56,7 @@ const Form: React.SFC<FormikProps<FormValues>> = props => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="name">
-        {t("label.name")}
-      </label>
+      <label htmlFor="name">{t("label.name")}</label>
       <input
         id="name"
         placeholder={t("label.namePlaceHolder")}
@@ -67,12 +65,8 @@ const Form: React.SFC<FormikProps<FormValues>> = props => {
         onBlur={handleBlur}
         value={values.name}
       />
-      {errors.name && touched.name && (
-        <div>{errors.name}</div>
-      )}
-      <label htmlFor="email">
-        {t("label.email")}
-      </label>
+      {errors.name && touched.name && <div>{errors.name}</div>}
+      <label htmlFor="email">{t("label.email")}</label>
       <input
         id="email"
         placeholder={t("label.emailPlaceHolder")}
@@ -81,14 +75,9 @@ const Form: React.SFC<FormikProps<FormValues>> = props => {
         onBlur={handleBlur}
         value={values.email}
       />
-      {errors.email && touched.email && (
-        <div>{errors.email}</div>
-      )}
+      {errors.email && touched.email && <div>{errors.email}</div>}
 
-      <button
-        type="button"
-        onClick={handleReset}
-      >
+      <button type="button" onClick={handleReset}>
         {t("label.reset")}
       </button>
       <button type="submit" disabled={isSubmitting}>
@@ -103,7 +92,7 @@ const MyForm: React.SFC = outerProps => {
   // 使用react-i18next的Hook使我们的函数组件能够获取到多语言转换用的t函数
   const { t } = useTranslation();
   // 自定义根据rules生成验证规则
-  const schema = getYupSchema(initialValues, rules, t);
+  const schema = getYupSchema(rules, t);
   // Formik相关定义
   return (
     <Formik

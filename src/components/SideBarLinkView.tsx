@@ -83,7 +83,7 @@ const SideBarLinkView = props => {
     icon,
     label,
     // children,
-    location,
+    // location,
     isSideBarOpened,
     nested,
     type,
@@ -91,10 +91,7 @@ const SideBarLinkView = props => {
     // toggleCollapse
   } = props;
 
-  console.log(link, location.pathname);
-  const isLinkActive =
-    link &&
-    (location.pathname === link || location.pathname.indexOf(link) !== -1);
+  const isLinkActive = link;
 
   if (type === "title")
     return (

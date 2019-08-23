@@ -1,51 +1,76 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable compat/compat */
 import axios from "axios";
+import qs from "qs";
 
-export class BaseApi {
-  // 默认配置
+axios.interceptors.request.use(
+  config => {
+    return config;
+  },
+  error => {
+    return Promise.resolve(error);
+  }
+);
+
+const errorHandle = (status, other) => {
+  // リスポンスのステータスコード判断
+  switch (status) {
+    // 401
+    case 401:
+      console.log("401", other);
+      break;
+    // 403
+    case 403:
+      console.log("403", other);
+      break;
+    // 404
+    case 404:
+      console.log("403", other);
+      break;
+    default:
+      console.log(other);
+  }
+};
+
+axios.interceptors.response.use(
+  // リクエスト成功の場合
+  res => (res.status === 200 ? Promise.resolve(res.data) : Promise.reject(res)),
+  error => {
+    const { response } = error;
+    if (response) {
+      errorHandle(response.status, response.data.message);
+      return Promise.reject(response);
+    } else {
+      return Promise.reject(error);
+    }
+  }
+);
+
+export default class AxiosApi {
   static baseOptions() {
     return {
-      // `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。
-      // 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对 URL
-      baseURL: "http://localhost:8090/api/",
-      // `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
-      // 如果请求话费了超过 `timeout` 的时间，请求将被中断
-      timeout: 1000,
-      // `responseType` 表示服务器响应的数据类型
-      responseType: "json",
-      // `maxContentLength` 定义允许的响应内容的最大尺寸
-      maxContentLength: 2000,
-      headers: {
-        "Access-Control-Allow-Origin": "*"
-      }
+      baseURL: "/api"
+      // timeout: 1000
     };
   }
 
-  /**
-   * 通用Http请求处理
-   */
   static common = (name: string, url: string, config?: any) => {
     const opts = {
-      ...BaseApi.baseOptions(),
+      ...AxiosApi.baseOptions(),
       ...config,
       url: url,
       method: name
     };
-    return axios(opts)
-      .then(res => {
-        if (res.status === 200) {
-          return res.data;
-        }
-      })
-      .catch(error => {
-        return error;
-      });
+    return axios(opts);
   };
-  // get 请求
+  // get
   static get = (url: string, params?: {}) => {
-    return BaseApi.common("get", url, { params: params });
+    return AxiosApi.common("get", url, { params: params });
   };
-  // post 请求
+  // post
   static post = (url: string, params?: {}) => {
-    return BaseApi.common("post", url, { params: params });
+    const headers = { "content-type": "application/x-www-form-urlencoded" };
+    const data = qs.stringify(params);
+    return AxiosApi.common("post", url, { headers, data });
   };
 }

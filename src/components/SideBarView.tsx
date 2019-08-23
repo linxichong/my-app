@@ -173,7 +173,7 @@ const SideBarView: React.SFC<SideBarViewProps> = props => {
         {structure.map(link => (
           <SideBarLinkView
             key={link.id}
-            location={location}
+            // location={location}
             isSideBarOpened={isSideBarOpened}
             {...link}
           />
