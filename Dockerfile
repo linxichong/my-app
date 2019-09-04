@@ -8,4 +8,4 @@
 # COPY --from=builder /app/dist /usr/share/nginx/html
 
 FROM nginx
-COPY /dist /usr/share/nginx/htm
+COPY /dist /usr/share/nginx/html
