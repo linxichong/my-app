@@ -30,7 +30,9 @@ export interface ValidateRuleDef {
     then?: ValidateRuleDef[];
     fn?: Function;
     target?: string;
-    is: string | number | boolean;
+    is?: string | number | boolean;
+    min?: number;
+    max?: number;
   };
   options?: ValidateRuleOption;
   fn?: Function;

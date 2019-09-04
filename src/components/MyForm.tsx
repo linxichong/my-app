@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FormikProps, Formik } from "formik";
-import { useTranslation } from "react-i18next";
+import { useTranslation, getI18n } from "react-i18next";
 import useTranslateFormErrors from "../common/Hook/useTranslateFormErrors";
 import { ValidateFieldDef, VALIDATE_TYPES } from "../common/validateTypes";
 import getYupSchema from "../common/getYupSchema";
@@ -89,10 +89,8 @@ const Form: React.SFC<FormikProps<FormValues>> = props => {
 
 // Formik组件定义
 const MyForm: React.SFC = outerProps => {
-  // 使用react-i18next的Hook使我们的函数组件能够获取到多语言转换用的t函数
-  const { t } = useTranslation();
   // 自定义根据rules生成验证规则
-  const schema = getYupSchema(rules, t);
+  const schema = getYupSchema(rules);
   // Formik相关定义
   return (
     <Formik

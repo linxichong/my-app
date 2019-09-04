@@ -49,10 +49,11 @@ const strTransformRule = [
   { name: "*.transform", fn: value => (!value ? null : value) }
 ];
 
-// 获取多语言实例
-const i18n = getI18n();
+
 // rules为表单字段需要生成的验证规则
 const getYupSchema = (rules, options?: ValidateRuleOption) => {
+  // 获取多语言实例
+  const i18n = getI18n();
   // 获取当前语言转换函数
   const t = i18n.getFixedT(i18n.language);
 

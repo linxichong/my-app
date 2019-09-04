@@ -4,9 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "bp": "webpack --config webpack.prod.js",
-    "bd": "webpack --config webpack.dev.js",
-    "dev": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
     "mock": "node ./src/mock/mock-server.js",
     "test": "jest",
     "test_dev": "jest --coverage"

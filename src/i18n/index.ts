@@ -3,7 +3,8 @@ import { initReactI18next } from "react-i18next";
 import zh from "./resources/zh";
 import en from "./resources/en";
 
-i18n
+const instance = i18n.createInstance();
+instance
   .use(initReactI18next) // use加载功能插件，这里是将i18n对象传递到react-i18next插件中
   .init({
     // 资源文件定义，资源文件名字需要注意满足语言简写标准
@@ -27,4 +28,4 @@ i18n
     }
   });
 
-export default i18n;
+export default instance;
