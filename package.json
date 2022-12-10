@@ -55,7 +55,7 @@
     "eslint-plugin-react": "7.x",
     "eslint-plugin-react-hooks": "^1.6.1",
     "eslint-plugin-unicorn": "6.x",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "file-loader": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.8.0",
